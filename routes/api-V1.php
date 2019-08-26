@@ -12,12 +12,21 @@ use Illuminate\Http\Request;
   | is assigned the "api" middleware group. Enjoy building your API!
   |
  */
+$version = "V1";
+
 Route::get('/', function () {
     return "API RODANDO";
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['api'], 'prefix' => $version], function () {
+    Route::resource('message', 'MessageController');
 });
 
-Route::resource('message', 'MessageController');
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+
+
+
+
