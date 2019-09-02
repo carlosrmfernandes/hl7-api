@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Nte extends Migration
+class CreateHospitalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class Nte extends Migration
      */
     public function up()
     {
-        Schema::create('nte', function (Blueprint $table) {
+        Schema::create('hospitals', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('hospital');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class Nte extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nte');
+        Schema::dropIfExists('hospitals');
     }
 }

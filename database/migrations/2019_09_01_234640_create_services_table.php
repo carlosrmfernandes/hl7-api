@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Evn extends Migration
+class CreateServicesTable extends Migration
 {
 
     /**
@@ -14,11 +14,12 @@ class Evn extends Migration
      */
     public function up()
     {
-        Schema::create('evn', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('event_type_code_1');
-            $table->dateTime('recorded_date_time_2');
-            $table->dateTime('date_time_planned_event_3')->nullable();
+            $table->string('service')->nullable();
+            $table->string('status')->nullable();
+            $table->unsignedBigInteger('hospital_id');
+            $table->foreign('hospital_id')->references('id')->on('hospitals');
             $table->timestamps();
         });
     }
@@ -30,7 +31,7 @@ class Evn extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('evn');
+        Schema::dropIfExists('services');
     }
 
 }

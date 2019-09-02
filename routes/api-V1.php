@@ -20,6 +20,9 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['api'], 'prefix' => $version], function () {
     Route::resource('message', 'MessageController');
+    Route::get('/get_hospital/{id?}', 'ServicesAvailableHospitalsController@get');
+    Route::post('/delete_hospital', 'ServicesAvailableHospitalsController@destroy');
+    Route::post('/criar_hospital', 'ServicesAvailableHospitalsController@create');
 });
 
 //Route::middleware('auth:api')->get('/user', function (Request $request) {

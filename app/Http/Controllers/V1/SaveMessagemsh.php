@@ -16,10 +16,9 @@ use Exception;
 class SaveMessagemsh extends Controller
 {
 
-    static function saveMessageMsh(object $messge)
+    static function saveMessageMsh(object $messge, $pid_id)
     {
-        $msh = \collect($messge->getSegmentsByName('PID'))->first();
-        
+        $msh = \collect($messge->getSegmentsByName('MSH'))->first();
 
         $mshResponse = new Msh();
 
@@ -86,10 +85,8 @@ class SaveMessagemsh extends Controller
             $mshResponse->date_time_of_message_7 = $date_time_of_message_7->format("Y/m/d");
         }
 
-        if ($msh->getField(8)) {
-            $security_8 = new DateTime($msh->getField(8));
-            $mshResponse->security_8 = $security_8->format("Y/m/d");
-        }
+        $mshResponse->security_8 = $msh->getField(8);
+
 
         if (is_array($msh->getField(9))) {
             if (!empty($msh->getField(9)[0])) {
@@ -126,6 +123,7 @@ class SaveMessagemsh extends Controller
         } else {
             $mshResponse->version_id_12_1 = $msh->getField(12);
         }
+        $mshResponse->pid_id = $pid_id;
 
         $mshResponse->save();
 

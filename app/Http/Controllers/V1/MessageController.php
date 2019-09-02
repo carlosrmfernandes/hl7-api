@@ -3,21 +3,18 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
-use Aranyasen\HL7\Message;
 use Illuminate\Http\Request;
+use App\Models\Pid;
 
 class MessageController extends Controller
 {
 
-    protected $mesege = "MSH|^~\&|MegaReg|XYZHospC|SuperOE|XYZImgCtr|20060529090131-0500||ADT^A01^ADT_A01|01052901|P|2.5
-EVN||200605290901|2006-01-19|||200605290900
+    protected $mesege = "MSH|^~\&|ADT1|GOOD HEALTH HOSPITAL|GHH LAB, INC.|GOOD HEALTH HOSPITAL|198808181126|SECURITY|ADT^A01^ADT_A01|MSG00001|T|2.6
+EVN||200609282108||02|Interface^HL7 Interface|200609282108
 PID|||56782445^^^UAReg^PI||KLEINSAMPLE^BARRY^Q^JR||19620910|M||2028-9^^HL70005^RA99113^^XYZ|260 GOODWIN CREST DRIVE^^BIRMINGHAM^AL^35209^^M~NICKELL’S PICKLES^10000 W 100TH AVE^BIRMINGHAM^AL^35200^^O|||||||0105I30001^^^99DEF^AN
-PV1||I|W^389^1^UABH^^^^3||||12345^MORGAN^REX^J^^^MD^0010^UAMC^L||67890^GRAINGER^LUCY^X^^^MD^0010^UAMC^L|MED|||||A0||13579^POTTER^SHERMAN^T^^^MD^0010^UAMC^L|||||||||||||||||||||||||||200605290900
-OBX|1|NM|^Body Height||1.80|m^Meter^ISO+|||||F
-OBX|2|NM|^Body Weight||79|kg^Kilogram^ISO+|||||F
-AL1|1||^ASPIRIN
-DG1|1||786.50^CHEST PAIN, UNSPECIFIED^I9|||A";
+NTE|1|L|NOTE: Submission of serum";
 
+    //PV1|1|I|2000^2012^01||||004777^ATTEND^AARON^A|||SUR||||7|A0|
     public function index()
     {
         
@@ -32,14 +29,24 @@ DG1|1||786.50^CHEST PAIN, UNSPECIFIED^I9|||A";
     {
         $message = SaveMessage::saveMessage($this->mesege);
 
-        if ($message) {
-            return response()->json($message['msg']->toString(true));
+        if (!empty($message['msg_erro'])) {
+            return response()->json(['erro' => $message['msg_erro']]);
         }
+        return response()->json($message['msg']->toString(true));
     }
 
-    public function show($id)
+    public function show($code)
     {
-        
+        $query = Pid::query();
+        $query->with('msh')
+                ->with('evn')
+                ->with('nte');
+        $msg = $query->orderBy('id', 'desc')->where('id_number_2_1', $code)->first();
+
+        if ($msg) {
+            return response()->json($msg);
+        }
+        return response()->json(['msg' => 'Nenhum Paciente Encontrado']);
     }
 
     public function edit($id)
