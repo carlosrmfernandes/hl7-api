@@ -15,6 +15,7 @@ class SaveMessage extends Controller
 
     static function saveMessage(string $message)
     {
+        
         $msg = new Message($message);
 
         DB::beginTransaction();

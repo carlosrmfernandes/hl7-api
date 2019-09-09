@@ -24,7 +24,6 @@ class SaveMessagepid extends Controller
         $pid = \collect($messge->getSegmentsByName('PID'))->first();
         $pidResponse = new Pid();
 
-
         if (!$pid->getField(3) || !$pid->getField(5)) {
             throw new Exception('PID.2 - Patient ID, '
             . 'PID.5 - Patient Name ');
