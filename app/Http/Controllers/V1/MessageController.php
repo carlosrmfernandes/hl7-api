@@ -34,7 +34,8 @@ class MessageController extends Controller
         $query = Pid::query();
         $query->with('msh')
                 ->with('evn')
-                ->with('nte');
+                ->with('nte')
+                ->with('obr');
         $msg = $query->orderBy('id', 'desc')->where('id_number_2_1', $code)->first();
 
         if ($msg) {

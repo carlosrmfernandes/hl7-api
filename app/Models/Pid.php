@@ -24,5 +24,9 @@ class Pid extends Model
     {
         return $this->hasMany("App\Models\Nte", "pid_id");
     }
+    public function obr()
+    {
+        return $this->hasMany("App\Models\Obr", "pid_id");
+    }
 
 }

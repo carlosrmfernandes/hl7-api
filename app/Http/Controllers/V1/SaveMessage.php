@@ -24,6 +24,7 @@ class SaveMessage extends Controller
             $mshResponse = SaveMessagemsh::saveMessageMsh($msg, $pidResponse->id);
             $evnResponse = SaveMessageevn::saveMessageEvn($msg, $pidResponse->id);
             $nteResponse = SaveMessagnte::SaveMessagnte($msg, $pidResponse->id);
+            $obrResponse = SaveMessageObr::saveMessageObr($msg, $pidResponse->id);
             DB::commit();
             return ['msg' => $msg];
         } catch (Exception $ex) {

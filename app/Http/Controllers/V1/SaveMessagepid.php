@@ -22,6 +22,7 @@ class SaveMessagepid extends Controller
     static function saveMessagepid($messge)
     {
         $pid = \collect($messge->getSegmentsByName('PID'))->first();
+//        dd($pid->getField(2));
         $pidResponse = new Pid();
 
         if (!$pid->getField(3) || !$pid->getField(5)) {
@@ -32,14 +33,14 @@ class SaveMessagepid extends Controller
 
         if (is_array($pid->getField(2))) {
             if (!empty($pid->getField(2)[0])) {
-                $pidResponse->set_id_pid_1 = $pid->getField(2)[0];
+                $pidResponse->id_number_2_1 = $pid->getField(2)[0];
             }if (!empty($pid->getField(2)[1])) {
                 $pidResponse->identifier_check_digit_2_2 = $pid->getField(2)[1];
             }if (!empty($pid->getField(2)[2])) {
                 $pidResponse->check_digit_scheme_2_3 = $pid->getField(2)[2];
             }
         } else {
-            $pidResponse->set_id_pid_1 = $pid->getField(2);
+            $pidResponse->id_number_2_1 = $pid->getField(2);
         }
         if (is_array($pid->getField(3))) {
             if (!empty($pid->getField(3)[0])) {
@@ -58,7 +59,7 @@ class SaveMessagepid extends Controller
                 $pidResponse->assigning_authority_3_6 = $pid->getField(3)[5];
             }
         } else {
-            $pidResponse->set_id_pid_1 = $pid->getField(3);
+            $pidResponse->id_number_3_1 = $pid->getField(3);
         }
 
         if (is_array($pid->getField(4))) {
