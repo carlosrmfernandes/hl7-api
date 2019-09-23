@@ -14,5 +14,9 @@ class Service extends Model
         'status',
         'hospital_id'
     ];
+    
+    public function hospital(){
+       return $this->belongsTo('App\Models\Hospital', 'hospital_id');
+    }
 
 }

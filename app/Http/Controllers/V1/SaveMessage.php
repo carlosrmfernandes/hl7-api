@@ -32,22 +32,6 @@ class SaveMessage extends Controller
             return ['msg_erro' => $ex->getMessage()];
         }
 
-
-
-
-
-
-
-
-
-//        $msg = new Message("MSH|^~\&|MegaReg|XYZHospC|SuperOE|XYZImgCtr|20060529090131-0500||ADT^A01^ADT_A01|01052901|P|2.5");
-//        $b = null;
-//        $abc = new Segment('PID');
-//        $abc->setField(1, '1');
-//        $abc->setField(2, $b);
-//        $abc->setField(3, '454721');
-//        $msg->setSegment($abc, 1);       
-//        dd($msg->toString(true));
     }
 
 }

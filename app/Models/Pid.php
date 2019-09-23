@@ -12,21 +12,21 @@ class Pid extends Model
 
     public function msh()
     {
-        return $this->hasMany("App\Models\Msh", "pid_id");
+        return $this->hasOne("App\Models\Msh", "pid_id");
     }
 
     public function evn()
     {
-        return $this->hasMany("App\Models\Evn", "pid_id");
+        return $this->hasOne("App\Models\Evn", "pid_id");
     }
 
     public function nte()
     {
-        return $this->hasMany("App\Models\Nte", "pid_id");
+        return $this->hasOne("App\Models\Nte", "pid_id");
     }
     public function obr()
     {
-        return $this->hasMany("App\Models\Obr", "pid_id");
+        return $this->hasOne("App\Models\Obr", "pid_id");
     }
 
 }
