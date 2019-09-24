@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Pid;
 use App\Models\Service;
 use Illuminate\Support\Facades\DB;
+use Aranyasen\HL7\Message;
+use Aranyasen\HL7\Segment;
 
 class MessageController extends Controller
 {
@@ -46,18 +48,10 @@ class MessageController extends Controller
                     ->where('service', "=", $msg->obr->identifier_4_1)
                     ->where('status', '=', 1);
         }
-
-//        $msg = new Message("MSH|^~\&|MegaReg|XYZHospC|SuperOE|XYZImgCtr|20060529090131-0500||ADT^A01^ADT_A01|01052901|P|2.5");
-//        $b = null;
-//        $abc = new Segment('PID');
-//        $abc->setField(1, '1');
-//        $abc->setField(2, $b);
-//        $abc->setField(3, '454721');
-//        $msg->setSegment($abc, 1);       
-//        dd($msg->toString(true));
         if ($msg) {
-
-            return response()->json(["dados_paciente" => $msg, "hospitais" => $service->get()]);
+            $createMessage = CreateMessage::createMessage($msg);
+//            dd($createMessage);
+            return response()->json(["dados_paciente" => $createMessage, "hospitais" => $service->get()]);
         }
         return response()->json(['msg' => 'Nenhum Paciente Encontrado']);
     }
