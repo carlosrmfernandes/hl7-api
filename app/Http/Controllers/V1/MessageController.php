@@ -50,7 +50,6 @@ class MessageController extends Controller
         }
         if ($msg) {
             $createMessage = CreateMessage::createMessage($msg);
-//            dd($createMessage);
             return response()->json(["dados_paciente" => $createMessage, "hospitais" => $service->get()]);
         }
         return response()->json(['msg' => 'Nenhum Paciente Encontrado']);
