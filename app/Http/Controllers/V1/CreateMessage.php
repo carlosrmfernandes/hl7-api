@@ -19,7 +19,6 @@ class CreateMessage
 
         $msg = new Message("MSH|^~\&|MegaReg|XYZHospC|SuperOE|XYZImgCtr|20060529090131-0500||ADT^A01^ADT_A01|01052901|P|2.5");
         $evn = new Segment('EVN');
-//        dd($message);
         $evn->setField(1, $message->evn->event_type_code_1);
         $evn->setField(2, $message->evn->recorded_date_time_2);
         $evn->setField(3, $message->evn->date_time_planned_event_3);
